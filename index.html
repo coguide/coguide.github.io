@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>CoGuide</title>
+
+  <!-- Fonts & CSS -->
+  <link href="https://fonts.googleapis.com/css?family=Google+Sans|Noto+Sans|Castoro" rel="stylesheet">
+  <link rel="stylesheet" href="./static/css/bulma.min.css">
+  <link rel="stylesheet" href="./static/css/index.css">
+
+  <!-- Optional JS (kept for parity with your template, safe to remove if unused) -->
+  <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+  <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+
+  <style>
+    :root {
+      --page-bg: #ffffff;
+      --muted-text: #555;
+    }
+    html, body {
+      background: var(--page-bg);
+    }
+    body {
+      font-family: 'Noto Sans', sans-serif;
+      font-size: 18px;
+      line-height: 1.6;
+      margin: 0;
+    }
+    .container {
+      padding-left: 15rem;
+      padding-right: 15rem;
+    }
+    p, li { text-align: justify; }
+    .hero .container p { text-align: center !important; }
+
+    /* Title page spacing tweaks */
+    .hero {
+      padding-top: 4rem;
+      padding-bottom: 4rem;
+    }
+    .subtitle-meta {
+      font-size: 1.1rem;
+      color: var(--muted-text);
+      font-weight: 500;
+      margin-top: 0.5rem;
+      text-align: center;
+    }
+
+    /* Responsive container padding */
+    @media (max-width: 1400px) {
+      .container { padding-left: 6rem; padding-right: 6rem; }
+    }
+    @media (max-width: 1024px) {
+      .container { padding-left: 2rem; padding-right: 2rem; }
+    }
+    @media (max-width: 768px) {
+      .container { padding-left: 1rem; padding-right: 1rem; }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Title Page Only -->
+  <section class="hero">
+    <div class="hero-body">
+      <div class="container has-text-centered">
+        <h1 class="title is-1">CoGuide: Contrastive Diffusion Guidance for Spatial Inverse Problems</h1>
+        <p class="subtitle-meta">In submission to ICLR 2026</p>
+      </div>
+    </div>
+  </section>
+
+</body>
+</html>
