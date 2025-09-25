@@ -48,6 +48,19 @@
       margin-top: 0.5rem;
       text-align: center;
     }
+    
+    .hero .container {
+      display: flex;
+      flex-direction: column;
+      align-items: center;   /* horizontal center */
+      text-align: center;    /* text center */
+      padding-left: 0;       /* kill the 15rem padding just for the hero */
+      padding-right: 0;
+    }
+    .hero .title {
+      margin: 0 auto;
+      text-align: center !important;  /* override any global .title rules */
+    }
 
     /* Responsive container padding */
     @media (max-width: 1400px) {
