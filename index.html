@@ -118,6 +118,33 @@
     }
 
     .section h2.title { margin-bottom: 1rem; }
+
+    .qual-row {
+      display: flex;
+      gap: 12px;                /* space between images */
+      align-items: flex-start;
+      justify-content: center;  /* center the trio inside container */
+      flex-wrap: nowrap;        /* keep on one line on wide screens */
+    }
+
+    .qual-row img {
+      height: 560px;            /* common visual height */
+      width: auto;              /* keep natural width; prevents squish */
+      display: block;
+    }
+
+    /* On tablets/phones, stack vertically and let width fill */
+    @media (max-width: 1024px) {
+      .qual-row {
+        flex-direction: column;
+        align-items: center;
+      }
+      .qual-row img {
+        height: auto;
+        width: 100%;
+        max-width: 100%;
+      }
+    }
   </style>
 </head>
 
@@ -212,18 +239,28 @@
       Although CFG can score well on metrics, its visuals are not always faithful and generates artifacts. 
       CoGuide yields cleaner, trajectory-consistent layouts across diverse test scenes.
       </p>
-      <div class="columns is-variable is-4">
-        <div class="column">
-          <figure>
-            <img src="./static/images/mainres1.png" alt="Qualitative results set 1" class="img-full">
-          </figure>
-        </div>
-        <div class="column">
-          <figure>
-            <img src="./static/images/mainres2.png" alt="Qualitative results set 2" class="img-full">
-          </figure>
-        </div>
+      <div class="qual-row" role="group" aria-label="Qualitative results">
+        <img src="./static/images/mainfig_0.png" alt="Qualitative results set 1">
+        <img src="./static/images/mainfig_1.png" alt="Qualitative results set 1">
+        <img src="./static/images/mainfig_2.png" alt="Qualitative results set 2">
       </div>
+      <!-- <div class="columns is-variable is-4"> -->
+        <!-- <div class="column">
+          <figure>
+            <img src="./static/images/mainfig_0.png" alt="Qualitative results set 1" class="img-full">
+          </figure>
+        </div>
+        <div class="column">
+          <figure>
+            <img src="./static/images/mainfig_1.png" alt="Qualitative results set 1" class="img-full">
+          </figure>
+        </div>
+        <div class="column">
+          <figure>
+            <img src="./static/images/mainfig_2.png" alt="Qualitative results set 2" class="img-full">
+          </figure>
+        </div> -->
+      <!-- </div> -->
 
       <h3 class="title is-4" style="margin-top:1.5rem;">Quantitative</h3>
       <p>
