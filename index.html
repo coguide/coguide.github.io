@@ -1,6 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
+<!-- <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
   <title>CoGuide: Contrastive Diffusion Guidance for Spatial Inverse Problems</title>
@@ -46,7 +46,82 @@
     @media (max-width: 1024px) { .container { padding-left: 2rem; padding-right: 2rem; } }
     @media (max-width: 768px)  { .container { padding-left: 1rem; padding-right: 1rem; } }
   </style>
+</head> -->
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>CoGuide: Contrastive Diffusion Guidance for Spatial Inverse Problems</title>
+
+  <link href="https://fonts.googleapis.com/css?family=Google+Sans|Noto+Sans|Castoro" rel="stylesheet">
+  <link rel="stylesheet" href="./static/css/bulma.min.css">
+  <link rel="stylesheet" href="./static/css/index.css">
+
+  <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+  <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+
+  <style>
+    html, body { height: 100%; }
+    body {
+      display: flex; flex-direction: column;
+      min-height: 100vh;
+      font-family: 'Noto Sans', sans-serif;
+      font-size: 18px;
+      line-height: 1.6;
+      background: #fff;
+      margin: 0;
+    }
+    main { flex: 1 0 auto; }
+
+    .container { padding-left: 15rem; padding-right: 15rem; }
+    @media (max-width: 1400px) { .container { padding-left: 6rem; padding-right: 6rem; } }
+    @media (max-width: 1024px) { .container { padding-left: 2rem; padding-right: 2rem; } }
+    @media (max-width: 768px)  { .container { padding-left: 1rem; padding-right: 1rem; } }
+
+    p, li { text-align: justify; }
+    .hero { padding-top: 4rem; padding-bottom: 3rem; }
+    .subtitle-meta { font-size: 1.05rem; color: #555; font-weight: 500; margin-top: 0.5rem; text-align: center; }
+    .hero .container p { text-align: center !important; }
+
+    .footer { background: #f5f5f5; padding: 0.75rem 1rem; margin-top: auto; }
+    .footer .content { margin: 0 auto; }
+    .footer p { text-align: center !important; margin: 0; }
+
+    figure { margin: 1rem auto; }
+    figcaption { text-align: center; font-size: 0.95rem; color: #666; margin-top: 0.5rem; }
+
+    .img-full { width: 100%; height: auto; display: block; }
+    .img-card { width: 100%; height: auto; display: block; border-radius: 12px; box-shadow: 0 6px 18px rgba(0,0,0,0.08); }
+
+    .figure-narrow { max-width: 1000px; }
+    .figure-medium { max-width: 1100px; }
+    .figure-wide { max-width: 1280px; }
+    .figure-narrow, .figure-medium, .figure-wide { width: 100%; }
+
+    .intro-figure { max-width: 1100px; }
+    .table-figure { max-width: 980px; }
+    .algo-figure { max-width: 1100px; }
+
+    .columns.tight { --bulma-column-gap: 1rem; }
+    .columns.tight .column { padding-left: 0.5rem; padding-right: 0.5rem; }
+    .method-split.mt-after { margin-bottom: 2.25rem; }
+
+    .method-split {
+      display: grid;
+      grid-template-columns: 1.1fr 1fr;
+      gap: 2rem;
+      align-items: center;
+    }
+    @media (max-width: 1024px) {
+      .method-split { grid-template-columns: 1fr; gap: 1.25rem; }
+    }
+
+    .section h2.title { margin-bottom: 1rem; }
+  </style>
 </head>
+
+
 <body>
 
   <main>
@@ -55,15 +130,166 @@
         <div class="container has-text-centered">
           <h1 class="title is-1">CoGuide: Contrastive Diffusion Guidance for Spatial Inverse Problems</h1>
           <p class="subtitle-meta">In submission to ICLR 2026</p>
-          <p><strong>Code available at:</strong> <a href="#" target="_blank">GitHub</a></p>
+          <p><strong>Code available at:</strong> <a href="https://github.com/coguide/coguide" target="_blank">GitHub</a></p>
           <p class="muted" style="margin-top: 0.75rem;">
             (TL;DR) We reconstruct indoor floorplans from sparse user trajectories by steering a diffusion prior
-            with a (surrogate) likelihood score from a smooth contrastive trajectory–layout embedding space.
+            with a (surrogate) likelihood score from a contrastive trajectory–layout embedding space.
           </p>
         </div>
       </div>
     </section>
 
+    <section id="abstract" class="section">
+    <div class="container">
+      <h2 class="title is-3 has-text-centered">Abstract</h2>
+      <div class="content" style="max-width: 900px; margin: 0 auto;">
+        <p>
+          We consider the inverse problem of reconstructing the spatial layout of a place, a home floorplan for example, from a user’s movements inside that layout. Direct inversion is ill-posed since many floorplans can explain the same movement trajectories. We adopt a diffusion-based posterior sampler to generate layouts consistent with the measurements. While active research is in progress on generative inverse solvers, we find that the forward operator in our problem poses new challenges. The path planning process inside a floorplan is a non-invertible, non-differentiable function, and causes instability while optimizing using the likelihood score. We break-away from existing approaches and reformulate the likelihood score in a smoother embedding space. The embedding space is trained with a contrastive loss which brings compatible floorplans and trajectories close to each other, while pushing mismatched pairs far apart. We show that a surrogate form of the likelihood score in this embedding space is a valid approximation of the true likelihood score, making it possible to steer the denoising process towards the posterior. Across extensive experiments, our model {\name} produces more consistent floorplans from trajectories, and is more robust than differentiable-planner baselines and guided-diffusion methods.
+        </p>
+      </div>
+    </div>
+    </section>
+
+
+  <section id="intro" class="section">
+    <div class="container">
+      <h2 class="title is-3">Introduction</h2>
+      <p>
+        In our setting, the measurement arises from a forward process that reflects human path planning. Because the path-planning operator is non-linear, non-differentiable, and only partially observed, small changes in layout can cause drastic changes in the planned path. 
+        The figure below illustrates this: the left panel shows a floorplan with the measured trajectory, while the right panel shows how planners such as A*, Neural A*, TransPath, and DiPPeR can select very different paths to a slight layout change (bottom row) triggering large path differences.
+      </p>
+      <figure>
+        <img src="./static/images/fp_and_paths2.png" alt="Problem overview: floorplan and paths" class="img-full">
+      </figure>
+    </div>
+  </section>
+
+  <section id="method" class="section">
+    <div class="container">
+      <h2 class="title is-3">Method</h2>
+      <div class="method-split">
+        <div>
+          <p>
+            We address the concerns raised by the forward operator by guiding a diffusion prior with a surrogate likelihood from a smooth, contrastive trajectory–layout space instead of the direct pixel-space likelihood. 
+            The resulting contrastive space (shown right) clusters compatible trajectory–layout pairs while pushing apart incompatible pairs.
+            This yields a smoother likelihood score that is more amenable to gradient-based optimization.
+            The contrastive model is trained with a combination of Supervised Contrastive Loss (SupCon), and an alignment loss.
+            We also adapt Adam and DDIM into the reverse-time update to improve convergence and speed.
+            The complete CoGuide algorithm is shown below.
+          </p>
+        </div>
+        <figure class="figure-narrow">
+          <img src="./static/images/contrastive.png" alt="Contrastive trajectory–layout embedding" class="img-full">
+        </figure>
+      </div>
+    </div>
+  </section>
+
+  <section id="algorithm" class="section">
+    <div class="container">
+      <h2 class="title is-3">Algorithm</h2>
+      <figure>
+        <img src="./static/images/algorithm.png" alt="CoGuide algorithm" class="img-full">
+      </figure>
+    </div>
+  </section>
+  <!-- <section id="algorithm" class="section">
+    <div class="container">
+      <h2 class="title is-3">Algorithm</h2>
+      <figure class="algo-figure figure-medium">
+        <img src="./static/images/algorithm.png" alt="CoGuide algorithm" class="img-card">
+      </figure>
+    </div>
+  </section> -->
+
+  <section id="results" class="section">
+    <div class="container">
+      <h2 class="title is-3">Results</h2>
+      <h3 class="title is-4">Qualitative</h3>
+      <p>
+      CoGuide produces floorplans that align with the measured trajectory while avoiding common artifacts from planner-guided methods (see below). 
+      DPS+planner variants, DiffPIR, and DMPlug frequently violate trajectory consistency or introduce spurious walls. 
+      Although CFG can score well on metrics, its visuals are not always faithful and generates artifacts. 
+      CoGuide yields cleaner, trajectory-consistent layouts across diverse test scenes.
+      </p>
+      <div class="columns is-variable is-4">
+        <div class="column">
+          <figure>
+            <img src="./static/images/mainres1.png" alt="Qualitative results set 1" class="img-full">
+          </figure>
+        </div>
+        <div class="column">
+          <figure>
+            <img src="./static/images/mainres2.png" alt="Qualitative results set 2" class="img-full">
+          </figure>
+        </div>
+      </div>
+
+      <h3 class="title is-4" style="margin-top:1.5rem;">Quantitative</h3>
+      <p>
+      In the table shown below, we report F1/IoU (mean&nbsp;±&nbsp;std) across three trajectory-density regimes (low, medium, high). 
+      CoGuide leads in the sparse and moderate settings, surpassing CFG and DPS variants, and remains competitive in the dense regime where CFG is strongest. 
+      Overall, CoGuide consistently outperforms DPS-based (differentiable) planners, DiffPIR, and DMPlug.
+      </p>
+      <figure>
+        <img src="./static/images/table1_main.png" alt="Main quantitative results" class="img-full">
+      </figure>
+    </div>
+  </section>
+
+  <section id="ablations" class="section">
+    <div class="container">
+      <h2 class="title is-3">Ablations</h2>
+      <h3 class="title is-4">Noise Robustness</h3>
+      <p>
+        To model real-world localization errors, we inject Gaussian noise during trajectory generation and sweep the noise standard deviation across densities. 
+        The resulting comparison plot is shown below.
+        As noise increases, performance degrades gracefully; higher trajectory density mitigates the impact and sustains stronger accuracy.
+      </p>
+      <figure>
+        <img src="./static/images/noise_ablation.png" alt="Gaussian noise ablation and performance" class="img-full">
+      </figure>
+
+      <!-- <h3 class="title is-4">Optimizers and Samplers</h3>
+      <figure>
+        <img src="./static/images/table2_ddim.png" alt="Comparison across Adam/SGD with DDPM/DDIM" class="img-full">
+      </figure> -->
+      <h3 class="title is-4">Optimizers and Samplers</h3>
+      <div class="method-split mt-after">
+        <div>
+        <p>
+          We incorporate Adam into the reverse-time diffusion and compare against standard gradient descent under both DDPM and DDIM samplers.
+          The table below demonstrates that Adam consistently improves convergence and final metrics across samplers, while DDIM achieves comparable accuracy to DDPM with fewer steps.
+        </p>
+          <ul style="margin-top:0.5rem;">
+            <li>DDPM vs. DDIM: speed–accuracy trade-off is minimal under our guidance.</li>
+            <li>Adam vs. SGD: Adam converges faster; final metrics are comparable.</li>
+          </ul>
+        </div>
+        <figure class="figure-narrow" style="justify-self:end;">
+          <img src="./static/images/table2_ddim.png" alt="Comparison across Adam/SGD with DDPM/DDIM" class="img-full">
+        </figure>
+      </div>
+
+      <h3 class="title is-4">Uncertainty vs. Trajectory Density</h3>
+      <p>
+        We also draw multiple samples from the posterior and compute the variance of the distance transform (with small translation tolerance) to estimate spatial uncertainty (see fig below). 
+        As trajectory density increases (across rows), uncertainty shrinks (reduction in the amount of "redness"), highlighting where additional user-collected trajectories would be most informative in a user-in-the-loop setting.
+      </p>
+      <div class="columns is-variable is-4">
+        <div class="column">
+          <figure>
+            <img src="./static/images/uncertainty1.png" alt="Uncertainty visualization 1" class="img-full">
+          </figure>
+        </div>
+        <div class="column">
+          <figure>
+            <img src="./static/images/uncertainty2.png" alt="Uncertainty visualization 2" class="img-full">
+          </figure>
+        </div>
+      </div>
+    </div>
+  </section>
 
 
   </main>
