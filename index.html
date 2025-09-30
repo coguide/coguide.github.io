@@ -179,6 +179,15 @@
       .gif-cell img { width: 100%; height: auto; }
     }
 
+    .links-row {
+      margin-top: 0.75rem;
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.75rem;
+      justify-content: center;
+    }
+    .button .icon { margin-right: 0.35rem; }
+
   </style>
 </head>
 
@@ -190,8 +199,14 @@
       <div class="hero-body">
         <div class="container has-text-centered">
           <h1 class="title is-1">CoGuide: Contrastive Diffusion Guidance for Spatial Inverse Problems</h1>
-          <p class="subtitle-meta">In submission to ICLR 2026</p>
+          <p class="subtitle-meta">In submission</p>
           <p><strong>Code available at:</strong> <a href="https://github.com/coguide/coguide" target="_blank">GitHub</a></p>
+          <div class="links-row">
+            <a class="button is-dark is-normal is-rounded"
+              href="./static/pdfs/CoGuide.pdf" target="_blank" rel="noopener">
+              <span class="icon">📄</span><span>Paper</span>
+            </a>
+          </div>
           <p class="muted" style="margin-top: 0.75rem;">
             (TL;DR) We reconstruct indoor floorplans from sparse user trajectories by steering a diffusion prior
             with a (surrogate) likelihood score from a contrastive trajectory–layout embedding space.
