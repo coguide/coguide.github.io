@@ -145,6 +145,40 @@
         max-width: 100%;
       }
     }
+
+    .gif-grid {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 12px;
+    }
+    .gif-cell {
+      background: #fff;
+      border: 1px solid #ececec;
+      border-radius: 12px;
+      padding: 6px;
+      height: 120px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+    .gif-cell img {
+      max-width: 100%;
+      max-height: 100%;
+      width: auto;
+      height: auto;
+      object-fit: contain;
+      display: block;
+    }
+    @media (max-width: 1024px) {
+      .gif-grid { grid-template-columns: repeat(2, 1fr); }
+      .gif-cell { height: 200px; }
+    }
+    @media (max-width: 640px) {
+      .gif-grid { grid-template-columns: 1fr; }
+      .gif-cell { height: auto; }
+      .gif-cell img { width: 100%; height: auto; }
+    }
+
   </style>
 </head>
 
@@ -228,6 +262,27 @@
       </figure>
     </div>
   </section> -->
+
+
+  <section id="reverse" class="section">
+    <div class="container">
+      <h2 class="title is-3">Reverse Denoising Process</h2>
+      <p>
+        Below, we show several examples of the reverse denoising process under CoGuide that samples from the posterior \(p(\mathbf{x}|\mathbf{y})\).
+        Each image has 3 columns: the leftmost column is the ground truth floorplan \(\mathbf{x}\), the middle column is the measured trajectory \(\mathbf{y}\), and the rightmost column shows the denoising process \(\mathbf{x}_T \rightarrow \mathbf{x}_0\) , from pure noise to the final output.
+      </p>
+      <div class="gif-grid" role="group" aria-label="Reverse denoising GIFs">
+        <div class="gif-cell"><img src="./static/videos/1.gif" alt="Reverse denoising example 1" loading="lazy"></div>
+        <div class="gif-cell"><img src="./static/videos/2.gif" alt="Reverse denoising example 2" loading="lazy"></div>
+        <div class="gif-cell"><img src="./static/videos/3.gif" alt="Reverse denoising example 3" loading="lazy"></div>
+        <div class="gif-cell"><img src="./static/videos/4.gif" alt="Reverse denoising example 4" loading="lazy"></div>
+        <div class="gif-cell"><img src="./static/videos/5.gif" alt="Reverse denoising example 5" loading="lazy"></div>
+        <div class="gif-cell"><img src="./static/videos/6.gif" alt="Reverse denoising example 6" loading="lazy"></div>
+        <div class="gif-cell"><img src="./static/videos/7.gif" alt="Reverse denoising example 7" loading="lazy"></div>
+        <div class="gif-cell"><img src="./static/videos/8.gif" alt="Reverse denoising example 8" loading="lazy"></div>
+      </div>
+    </div>
+  </section>
 
   <section id="results" class="section">
     <div class="container">
