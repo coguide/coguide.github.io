@@ -349,6 +349,16 @@
       </div>
     </section>
 
+
+    <!-- Jump link to real-world results -->
+    <section class="section" style="padding-top: 0.25rem; padding-bottom: 0.25rem;">
+      <div class="container">
+        <div class="audio-jump-banner" onclick="document.getElementById('real-world-results').scrollIntoView({behavior: 'smooth'});">
+          <p><span class="new-badge">New</span> 🏠 Real-World Floorplan Results for Rebuttal (click to view below)</p>
+        </div>
+      </div>
+    </section>
+
     <!-- Jump link to audio restoration experiments -->
     <section class="section" style="padding-top: 0.25rem; padding-bottom: 0.25rem;">
       <div class="container">
@@ -541,6 +551,38 @@
     </div>
   </section>
 
+    <!-- <section id="real-world-results" class="section" style="background: linear-gradient(to bottom, #ffffff 0%, #f8f9ff 100%);"> -->
+    <section id="real-world-results" class="section">
+      <div class="container">
+        <h2 class="title is-3 has-text-centered" style="color: #667eea;">Real-World Floorplan Results</h2>
+        <div class="content" style="max-width: 1000px; margin: 0 auto 2rem auto;">
+          <p>
+            To evaluate real-world performance, we collected trajectories in two student
+            apartments using the Qorvo DWM3000 ultrawideband (UWB) module Qorvo (2021). The UWB system
+            consists of multiple anchors statically placed at known 3D coordinates in the apartment. The user carries
+            a beacon that periodically pings each anchor, allowing us to estimate the time-of-flight (ToF) to that
+            anchor. Using the ToF to line-of-sight anchors and the known speed of light, we apply trilateration to
+            estimate the user’s 3D position. We then project the 3D position onto the 2D floorplan to obtain walking
+            trajectories. The UWB setup provides locations with a standard deviation of 10 cm. It is worth noting that
+            the trajectories obtained via this method are sparser and distributed somewhat differently compared to our
+            A*-generated dataset.
+          </p>
+          <p>
+            The figure below compares CoGuide and CFG on these real-world measurements. 
+            Although both methods make errors, CoGuide infers more wall segments and room structure, whereas CFG often misses or misplaces major walls.
+            This gap is expected since CFG is trained to model the posterior density under synthetic A*-generated trajectories, and therefore struggles to generalize to sparser, differently distributed real-world data.
+            <!-- If the contrastive model were trained with real-world human trajectories and furniture-embedded floorplans, we believe results could be substantially better, narrowing the sim2real gap. -->
+          </p>
+        </div>
+        <figure class="figure-narrow" style="max-width: 900px; margin: 0 auto;">
+          <img src="./static/images/real_world.png" alt="Real-world floorplan results" class="img-full">
+          <figcaption style="font-size: 1.1rem; font-weight: 500; color: #444; margin-top: 1rem;">
+            Real-world results comparing CFG and CoGuide on two apartment layouts.
+          </figcaption>
+        </figure>
+      </div>
+    </section>
+
 
   <section id="audio-restoration" class="section" style="background: linear-gradient(to bottom, #ffffff 0%, #f8f9ff 100%);">
     <div class="container">
@@ -548,24 +590,25 @@
       <div class="content" style="max-width: 1000px; margin: 0 auto 2rem auto;">
         <p>
           To demonstrate generalization beyond the spatial setting, we have conducted additional experiments on <strong>Blind Audio Restoration</strong>. 
-          We aim to enhance the audio quality of historical piano recordings containing unknown degradations (spectral coloration, noise, clicks, etc.). 
-          We operate in a fully blind setting without assuming particular analytical forms for the degradation operators. 
-          Using a contrastive model trained on clean recordings from the MAESTRO dataset paired with synthetic degradations, 
-          along with a pretrained diffusion prior (CQTDiff+ from BABE2), we are able to improve the audio quality of these recordings.
-          We compare against the LTAS baseline [1], an equalization technique that seeks to align the Long-term Averaged Spectrum (LTAS) of the audio with a reference set.
+          We aim to enhance historical piano recordings corrupted by unknown degradations (i.e., the A(.) operator includes spectral coloration, additive noise and clicks, nonlinear effects, etc.). 
+          This is a fully blind setting since we neither assume an analytical form for A(.), nor do we estimate it during inference. 
+          Instead, we employ our proposed contrastive model—trained with pairs of clean and degraded audio data—to learn powerful representations. 
+          Our clean data are recordings from the MAESTRO dataset [1] while the degradations include low-pass filtering, clipping, additive Gaussian noise, etc. 
+          Using a pretrained diffusion prior [2], we observe improved audio quality of these recordings; CQT plots demonstrate that the model achieves bandwidth extension, improved dynamics and a reduction in noise in the high frequency. 
+          We compare against LTAS [2], an equalization technique that seeks to align the Long-term Averaged Spectrum of the audio with a reference set. 
         </p>
       </div>
 
       <!-- Quantitative Results Table -->
       <div class="content" style="max-width: 800px; margin: 0 auto 2rem auto;">
         <p style="text-align: center; margin-bottom: 1.5rem;">
-          The table below shows the quantitative metrics of Fréchet Audio Distance (FAD) [2] (using VGGnet) and PANNs [3] for the degraded recordings, LTAS baseline, and CoGuide.
+          The table below shows the quantitative metrics of Fréchet Audio Distance (FAD) [3] using VGGnet and PANNs [4] for the degraded recordings, LTAS baseline, and CoGuide.
         </p>
         <table style="width: 100%; margin: 0 auto 2rem auto; border-collapse: collapse; box-shadow: 0 2px 8px rgba(0,0,0,0.1);">
           <thead>
             <tr style="background: #f5f5f5;">
               <th style="padding: 1rem; text-align: left; border: 1px solid #ddd; font-weight: 700;">Method</th>
-              <th style="padding: 1rem; text-align: center; border: 1px solid #ddd; font-weight: 700;">FAD (VGG) ↓</th>
+              <th style="padding: 1rem; text-align: center; border: 1px solid #ddd; font-weight: 700;">VGG ↓</th>
               <th style="padding: 1rem; text-align: center; border: 1px solid #ddd; font-weight: 700;">PANN ↓</th>
             </tr>
           </thead>
@@ -985,17 +1028,22 @@
       <h2 class="title is-3">References</h2>
       <div class="content" style="max-width: 900px; margin: 0 auto;">
         <p style="text-align: left;">
-          [1] Moliner, Eloi, et al. 
+          [1] Hawthorne, Curtis, et al. 
+          <em>Enabling factorized piano music modeling and generation with the MAESTRO dataset.</em>
+          arXiv preprint arXiv:1810.12247 (2018).
+        </p>
+        <p style="text-align: left;">
+          [2] Moliner, Eloi, et al. 
           <em>A diffusion-based generative equalizer for music restoration.</em> 
           arXiv preprint arXiv:2403.18636 (2024).
         </p>
         <p style="text-align: left;">
-          [2] Kilgour, Kevin, et al. 
+          [3] Kilgour, Kevin, et al. 
           <em>Fréchet audio distance: A reference-free metric for evaluating music enhancement algorithms.</em> 
           arXiv preprint arXiv:1812.08466 (2018).
         </p>
         <p style="text-align: left;">
-          [3] Kong, Qiuqiang, et al. 
+          [4] Kong, Qiuqiang, et al. 
           <em>PANNs: Large-scale pretrained audio neural networks for audio pattern recognition.</em> 
           IEEE/ACM Transactions on Audio, Speech, and Language Processing 28 (2020): 2880-2894.
         </p>
